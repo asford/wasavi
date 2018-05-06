@@ -626,8 +626,6 @@
 		&&  'writeAs' in data.payload
 		&&  data.payload.writeAs == 'html') {
 			var renderer = new marked.Renderer;
-			renderer.heading = rendererHeading;
-			renderer.paragraph = rendererParagraph;
 			renderer.strong = rendererStrong;
 			renderer.em = rendererEm;
 
