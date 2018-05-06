@@ -1,7 +1,7 @@
 # application macros
 # ========================================
 
-VERSION := $(shell echo -n `git describe --abbrev=0|awk 'match($$0,/([0-9]+\.[0-9]+)/,a){print a[0]}'`.`git rev-list --count HEAD`)
+VERSION := $(shell echo -n `git describe --abbrev=0|sed 's/-.*//'`.`git rev-list --count HEAD`)
 
 SHELL := /bin/sh
 PATH_SEPARATOR := /
@@ -23,7 +23,7 @@ RSYNC := rsync
 PRODUCT = wasavi
 DIST_DIR = dist
 SRC_DIR = src
-EMBRYO_DIR = .embryo
+EMBRYO_DIR = embryo
 TOOL_DIR = node_modules/brisket
 
 TEST_WWW_SERVER = $(SRC_DIR)/wd-tests/server
@@ -175,7 +175,7 @@ $(CHROME_TARGET_PATH): $(CHROME_MTIME_PATH) $(BINKEYS_PATH)
 
 # last mtime holder
 $(CHROME_MTIME_PATH): FORCE
-	@mkdir -p $(CHROME_EMBRYO_SRC_PATH) $(DIST_DIR)
+	@mkdir -p $(CHROME_EMBRYO_SRC_PATH) $(DIST_DIR) $@
 	$(TOOL_DIR)/mtime.js --dir $(CHROME_SRC_PATH) --base $(CHROME_TARGET_PATH) --out $@
 
 
