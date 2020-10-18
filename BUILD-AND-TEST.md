@@ -1,3 +1,11 @@
+@asford build notes
+===================
+
+
+Added `bootstrap_dev_env` with bootstrap environment.
+Requires `direnv`
+
+
 wasavi building and testing guide
 =================================
 
@@ -6,7 +14,7 @@ wasavi building and testing guide
   The following objects are required to build and test wasavi:
 
   * OS which supports a symbolic link native
-  * node.js and npm (to manage packages)
+  * node.js=10 and npm (to manage packages)
   * web-ext, via npm (to run wasavi on Firefox)
   * mocha, via npm (to test wasavi)
   * Selenium javascript binding (to test wasavi)

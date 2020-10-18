@@ -6,9 +6,11 @@ VERSION := $(shell echo -n `git describe --abbrev=0|sed 's/-.*//'`.`git rev-list
 SHELL := /bin/sh
 PATH_SEPARATOR := /
 
-CHROME := google-chrome
-BLINKOPERA := opera
-FIREFOX := firefox
+# To support headless mode, run browsers under xvfb-run if possible
+XVFB-RUN := $(shell command -v xvfb-run)
+CHROME := $(XVFB-RUN) google-chrome
+BLINKOPERA := $(XVFB-RUN) opera
+FIREFOX := $(XVFB-RUN) firefox
 CYGPATH := echo
 REALPATH := realpath
 
@@ -23,7 +25,7 @@ RSYNC := rsync
 PRODUCT = wasavi
 DIST_DIR = dist
 SRC_DIR = src
-EMBRYO_DIR = embryo
+EMBRYO_DIR = .embryo
 TOOL_DIR = node_modules/brisket
 
 TEST_WWW_SERVER = $(SRC_DIR)/wd-tests/server

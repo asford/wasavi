@@ -1,0 +1,31 @@
+#!/bin/bash
+#http://redsymbol.net/articles/unofficial-bash-strict-mode/
+
+set -euo pipefail
+IFS=$'\n\t'
+
+set -x
+
+cd `git rev-parse --show-toplevel`
+
+# Running under headless chrome via xvfb in Makefile.
+if ! command -v google-chrome &> /dev/null
+then
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo apt install ./google-chrome-stable_current_amd64.deb
+  rm *.deb
+fi
+
+if ! command -v xvfb-run &> /dev/null
+then
+  sudo apt install xvfb
+fi
+
+git submodule update -i
+
+# requires activate via direnv .envrc for make
+mkdir -p envs
+conda create -y -p envs/default -c conda-forge nodejs=10 make
+
+eval "$(conda shell.posix activate envs/default)"
+envs/default/bin/npm install
